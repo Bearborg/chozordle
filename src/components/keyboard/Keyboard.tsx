@@ -1,7 +1,6 @@
 import { getStatuses } from '../../lib/statuses'
 import { Key } from './Key'
 import { useEffect } from 'react'
-import { ENTER_TEXT, DELETE_TEXT } from '../../constants/strings'
 import { BackspaceIcon, CheckCircleIcon } from '@heroicons/react/outline'
 import { localeAwareUpperCase } from '../../lib/words'
 
