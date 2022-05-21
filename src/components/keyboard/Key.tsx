@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import classnames from 'classnames'
 import { CharStatus } from '../../lib/statuses'
 import { REVEAL_TIME_MS } from '../../constants/settings'
-import { getStoredIsHighContrastMode } from '../../lib/localStorage'
+import { getStoredIsHighContrastMode, getStoredIsChozoMode } from '../../lib/localStorage'
 import { solution } from '../../lib/words'
 
 type Props = {
@@ -24,9 +24,10 @@ export const Key = ({
 }: Props) => {
   const keyDelayMs = REVEAL_TIME_MS * solution.length
   const isHighContrast = getStoredIsHighContrastMode()
+  const isChozoMode = getStoredIsChozoMode()
 
   const classes = classnames(
-    'flex items-center justify-center rounded mx-0.5 text-xs font-bold cursor-pointer select-none dark:text-white',
+    'flex items-center justify-center rounded mx-0.5 cursor-pointer select-none dark:text-white',
     {
       'transition ease-in-out': isRevealing,
       'bg-slate-200 dark:bg-slate-600 hover:bg-slate-300 active:bg-slate-400':
@@ -40,6 +41,8 @@ export const Key = ({
         status === 'correct' && !isHighContrast,
       'bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 text-white':
         status === 'present' && !isHighContrast,
+      'text-xl chozo-font': isChozoMode,
+      'text-xs font-bold': !isChozoMode,
     }
   )
 

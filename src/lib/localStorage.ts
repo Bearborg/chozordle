@@ -1,5 +1,6 @@
 const gameStateKey = 'gameState'
 const highContrastKey = 'highContrast'
+const chozoModeKey = 'chozoMode'
 
 type StoredGameState = {
   guesses: string[]
@@ -46,4 +47,17 @@ export const setStoredIsHighContrastMode = (isHighContrast: boolean) => {
 export const getStoredIsHighContrastMode = () => {
   const highContrast = localStorage.getItem(highContrastKey)
   return highContrast === '1'
+}
+
+export const setStoredIsChozoMode = (isChozoMode: boolean) => {
+  if (isChozoMode) {
+    localStorage.setItem(chozoModeKey, '1')
+  } else {
+    localStorage.setItem(chozoModeKey, '0')
+  }
+}
+
+export const getStoredIsChozoMode = () => {
+  const chozoMode = localStorage.getItem(chozoModeKey)
+  return chozoMode !== '0'
 }

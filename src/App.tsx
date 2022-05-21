@@ -32,6 +32,8 @@ import {
   saveGameStateToLocalStorage,
   setStoredIsHighContrastMode,
   getStoredIsHighContrastMode,
+  setStoredIsChozoMode,
+  getStoredIsChozoMode,
 } from './lib/localStorage'
 import { default as GraphemeSplitter } from 'grapheme-splitter'
 
@@ -65,6 +67,7 @@ function App() {
   const [isHighContrastMode, setIsHighContrastMode] = useState(
     getStoredIsHighContrastMode()
   )
+  const [isChozoMode, setIsChozoMode] = useState(getStoredIsChozoMode())
   const [isRevealing, setIsRevealing] = useState(false)
   const [guesses, setGuesses] = useState<string[]>(() => {
     const loaded = loadGameStateFromLocalStorage()
@@ -123,7 +126,13 @@ function App() {
     } else {
       document.documentElement.classList.remove('high-contrast')
     }
-  }, [isDarkMode, isHighContrastMode])
+
+    if (isChozoMode) {
+      document.documentElement.classList.add('chozo-mode')
+    } else {
+      document.documentElement.classList.remove('chozo-mode')
+    }
+  }, [isDarkMode, isHighContrastMode, isChozoMode])
 
   const handleDarkMode = (isDark: boolean) => {
     setIsDarkMode(isDark)
@@ -142,6 +151,11 @@ function App() {
   const handleHighContrastMode = (isHighContrast: boolean) => {
     setIsHighContrastMode(isHighContrast)
     setStoredIsHighContrastMode(isHighContrast)
+  }
+
+  const handleChozoMode = (isChozoMode: boolean) => {
+    setIsChozoMode(isChozoMode)
+    setStoredIsChozoMode(isChozoMode)
   }
 
   const clearCurrentRowClass = () => {
@@ -302,6 +316,8 @@ function App() {
           handleDarkMode={handleDarkMode}
           isHighContrastMode={isHighContrastMode}
           handleHighContrastMode={handleHighContrastMode}
+          isChozoMode={isChozoMode}
+          handleChozoMode={handleChozoMode}
         />
         <AlertContainer />
       </div>

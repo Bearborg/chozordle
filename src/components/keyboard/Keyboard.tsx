@@ -2,6 +2,7 @@ import { getStatuses } from '../../lib/statuses'
 import { Key } from './Key'
 import { useEffect } from 'react'
 import { ENTER_TEXT, DELETE_TEXT } from '../../constants/strings'
+import { BackspaceIcon, CheckCircleIcon } from '@heroicons/react/outline'
 import { localeAwareUpperCase } from '../../lib/words'
 
 type Props = {
@@ -79,7 +80,7 @@ export const Keyboard = ({
       </div>
       <div className="flex justify-center">
         <Key width={65.4} value="ENTER" onClick={onClick}>
-          {ENTER_TEXT}
+          <CheckCircleIcon className="h-8 w-8"/>
         </Key>
         {['Z', 'X', 'C', 'V', 'B', 'N', 'M'].map((key) => (
           <Key
@@ -91,7 +92,7 @@ export const Keyboard = ({
           />
         ))}
         <Key width={65.4} value="DELETE" onClick={onClick}>
-          {DELETE_TEXT}
+          <BackspaceIcon className="h-8 w-8"/>
         </Key>
       </div>
     </div>

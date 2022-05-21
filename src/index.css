@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'mawkin_sansregular';
+  src: url('./mawkin_sans.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --animation-speed: 1000ms;
   --animation-speed-fast: 250ms;
@@ -23,6 +30,10 @@
 .high-contrast {
   --correct-cell-bg-color: theme('colors.orange.400');
   --present-cell-bg-color: theme('colors.cyan.400');
+}
+
+.chozo-font {
+  font-family: 'mawkin_sansregular';
 }
 
 .cell-fill-animation {
