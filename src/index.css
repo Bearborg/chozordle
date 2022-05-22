@@ -61,7 +61,7 @@
 
 .letter-container {
   /* I have no idea why, but this fixes letters being clipped while flipping on iOS */
-  padding: 40px;
+  padding: 30px;
 }
 
 .cell-reveal > .letter-container {
