@@ -59,6 +59,12 @@
   animation-name: revealPresentCharCell;
 }
 
+.letter-container {
+  /* I have no idea why, but this fixes letters being clipped while flipping on iOS */
+  padding: 999px;
+  pointer-events: none;
+}
+
 .cell-reveal > .letter-container {
   animation: offsetLetterFlip 0.35s linear;
   animation-fill-mode: backwards;
