@@ -9,6 +9,10 @@
   font-style: normal;
 }
 
+#root {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
 :root {
   --animation-speed: 1000ms;
   --animation-speed-fast: 250ms;
