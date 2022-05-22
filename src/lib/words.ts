@@ -75,14 +75,19 @@ export const localeAwareUpperCase = (text: string) => {
     : text.toUpperCase()
 }
 
+const daysElapsedBetween = (start: Date, end: Date) => {
+  return Math.floor((end.valueOf() - start.valueOf()) / (24 * 60 * 60 * 1000));
+}
+
 export const getWordOfDay = (today: Date = new Date()) => {
   // January 1, 2022 Game Epoch
   const epoch = new Date(2022, 0)
+  const firstDay = new Date(2022, 4, 19)
 
   today.setHours(0, 0, 0, 0)
 
   // Number of days elapsed since epoch
-  const daysElapsed = Math.floor((today.valueOf() - epoch.valueOf()) / (24 * 60 * 60 * 1000)) 
+  const daysElapsed = daysElapsedBetween(epoch, today) ;
   const index = Math.abs(seedrandom.alea(daysElapsed.toString()).int32())
 
   const nextDay = new Date(today)
@@ -90,7 +95,7 @@ export const getWordOfDay = (today: Date = new Date()) => {
 
   return {
     solution: localeAwareUpperCase(WORDS[index % WORDS.length]),
-    solutionIndex: index,
+    solutionIndex: daysElapsedBetween(firstDay, today),
     tomorrow: nextDay.valueOf(),
   }
 }

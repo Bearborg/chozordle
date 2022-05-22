@@ -86,8 +86,6 @@ export const StatsModal = ({
                 guesses,
                 isGameLost,
                 isHardMode,
-                isDarkMode,
-                isHighContrastMode,
                 handleShareToClipboard
               )
             }}
