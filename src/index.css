@@ -9,7 +9,7 @@
   font-style: normal;
 }
 
-#root {
+#root > div:last-child {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
