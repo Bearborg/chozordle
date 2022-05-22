@@ -3,6 +3,7 @@ import { VALID_GUESSES } from '../constants/validGuesses'
 import { WRONG_SPOT_MESSAGE, NOT_CONTAINED_MESSAGE } from '../constants/strings'
 import { getGuessStatuses } from './statuses'
 import { default as GraphemeSplitter } from 'grapheme-splitter'
+import { default as seedrandom } from 'seedrandom'
 
 export const isWordInWordList = (word: string) => {
   return (
@@ -74,17 +75,15 @@ export const localeAwareUpperCase = (text: string) => {
     : text.toUpperCase()
 }
 
-export const getWordOfDay = () => {
+export const getWordOfDay = (today: Date = new Date()) => {
   // January 1, 2022 Game Epoch
   const epoch = new Date(2022, 0)
-  const start = new Date(epoch)
-  const today = new Date()
+
   today.setHours(0, 0, 0, 0)
-  let index = 0
-  while (start < today) {
-    index++
-    start.setDate(start.getDate() + 1)
-  }
+
+  // Number of days elapsed since epoch
+  const daysElapsed = Math.floor((today.valueOf() - epoch.valueOf()) / (24 * 60 * 60 * 1000)) 
+  const index = Math.abs(seedrandom.alea(daysElapsed.toString()).int32())
 
   const nextDay = new Date(today)
   nextDay.setDate(today.getDate() + 1)
