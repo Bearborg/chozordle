@@ -59,9 +59,9 @@ export const generateEmojiGrid = (
         .map((_, i) => {
           switch (status[i]) {
             case 'correct':
-              return (i % 2 == 0) ? tiles[0] : tiles[1]
+              return (i % 2 === 0) ? tiles[0] : tiles[1]
             case 'present':
-              return (i % 2 == 0) ? tiles[2] : tiles[3]
+              return (i % 2 === 0) ? tiles[2] : tiles[3]
             default:
               return tiles[4]
           }
