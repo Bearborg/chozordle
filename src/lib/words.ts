@@ -7,7 +7,7 @@ import { default as seedrandom } from 'seedrandom'
 
 export const isWordInWordList = (word: string) => {
   return (
-    WORDS.includes(localeAwareLowerCase(word)) ||
+    WORDS.has(localeAwareLowerCase(word)) ||
     VALID_GUESSES.includes(localeAwareLowerCase(word))
   )
 }
@@ -93,11 +93,14 @@ export const getWordOfDay = (today: Date = new Date()) => {
   const nextDay = new Date(today)
   nextDay.setDate(today.getDate() + 1)
 
+  const solutionPair = Array.from(WORDS)[index % WORDS.size]
+
   return {
-    solution: localeAwareUpperCase(WORDS[index % WORDS.length]),
+    solution: localeAwareUpperCase(solutionPair[0]),
+    solutionMeaning: localeAwareUpperCase(solutionPair[1]),
     solutionIndex: daysElapsedBetween(firstDay, today),
     tomorrow: nextDay.valueOf(),
   }
 }
 
-export const { solution, solutionIndex, tomorrow } = getWordOfDay()
+export const { solution, solutionMeaning, solutionIndex, tomorrow } = getWordOfDay()

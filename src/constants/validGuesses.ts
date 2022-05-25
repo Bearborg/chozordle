@@ -24,6 +24,7 @@ export const VALID_GUESSES = [
   'darha',
   'eddis',
   'eidis',
+  'elari',
   'eleme',
   'emuna',
   'erris',

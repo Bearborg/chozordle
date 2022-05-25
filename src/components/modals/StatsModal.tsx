@@ -3,13 +3,14 @@ import { StatBar } from '../stats/StatBar'
 import { Histogram } from '../stats/Histogram'
 import { GameStats } from '../../lib/localStorage'
 import { shareStatus } from '../../lib/share'
-import { tomorrow } from '../../lib/words'
+import { tomorrow, solutionMeaning } from '../../lib/words'
 import { BaseModal } from './BaseModal'
 import {
   STATISTICS_TITLE,
   GUESS_DISTRIBUTION_TEXT,
   NEW_WORD_TEXT,
   SHARE_TEXT,
+  WORD_MEANING_MESSAGE
 } from '../../constants/strings'
 
 type Props = {
@@ -67,8 +68,12 @@ export const StatsModal = ({
         isGameWon={isGameWon}
         numberOfGuessesMade={numberOfGuessesMade}
       />
-      {(isGameLost || isGameWon) && (
-        <div className="mt-5 sm:mt-6 columns-2 dark:text-white">
+      {(isGameLost || isGameWon) && (<div className="mt-5 sm:mt-6 dark:text-white" >
+        <div className='bg-slate-200 dark:bg-slate-600 rounded px-1 py-3 my-2 text-lg'>
+            <h5>{WORD_MEANING_MESSAGE(solution, solutionMeaning)}</h5>
+          </div>
+        <div className="columns-2">
+          
           <div>
             <h5>{NEW_WORD_TEXT}</h5>
             <Countdown
@@ -92,6 +97,7 @@ export const StatsModal = ({
           >
             {SHARE_TEXT}
           </button>
+        </div>
         </div>
       )}
     </BaseModal>
