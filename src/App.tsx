@@ -25,6 +25,7 @@ import {
   solution,
   findFirstUnusedReveal,
   unicodeLength,
+  solutionMeaning,
 } from './lib/words'
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
 import {
@@ -297,14 +298,13 @@ function App() {
           isOpen={isStatsModalOpen}
           handleClose={() => setIsStatsModalOpen(false)}
           solution={solution}
+          solutionMeaning={solutionMeaning}
           guesses={guesses}
           gameStats={stats}
           isGameLost={isGameLost}
           isGameWon={isGameWon}
           handleShareToClipboard={() => showSuccessAlert(GAME_COPIED_MESSAGE)}
           isHardMode={isHardMode}
-          isDarkMode={isDarkMode}
-          isHighContrastMode={isHighContrastMode}
           numberOfGuessesMade={guesses.length}
         />
         <SettingsModal

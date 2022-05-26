@@ -3,7 +3,7 @@ import { StatBar } from '../stats/StatBar'
 import { Histogram } from '../stats/Histogram'
 import { GameStats } from '../../lib/localStorage'
 import { shareStatus } from '../../lib/share'
-import { tomorrow, solutionMeaning } from '../../lib/words'
+import { tomorrow } from '../../lib/words'
 import { BaseModal } from './BaseModal'
 import {
   STATISTICS_TITLE,
@@ -17,14 +17,13 @@ type Props = {
   isOpen: boolean
   handleClose: () => void
   solution: string
+  solutionMeaning: string
   guesses: string[]
   gameStats: GameStats
   isGameLost: boolean
   isGameWon: boolean
   handleShareToClipboard: () => void
   isHardMode: boolean
-  isDarkMode: boolean
-  isHighContrastMode: boolean
   numberOfGuessesMade: number
 }
 
@@ -32,14 +31,13 @@ export const StatsModal = ({
   isOpen,
   handleClose,
   solution,
+  solutionMeaning,
   guesses,
   gameStats,
   isGameLost,
   isGameWon,
   handleShareToClipboard,
   isHardMode,
-  isDarkMode,
-  isHighContrastMode,
   numberOfGuessesMade,
 }: Props) => {
   if (gameStats.totalGames <= 0) {
