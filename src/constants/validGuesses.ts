@@ -1,5 +1,6 @@
 export const VALID_GUESSES = [
   'aicon',
+  'aikon',
   'aimar',
   'akala',
   'aruar',

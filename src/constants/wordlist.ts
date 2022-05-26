@@ -1,5 +1,5 @@
-export const WORDS: Map<string, string> = new Map ([
-  ['aicon', 'first'],
+export const WORDS: Map<string, string> = new Map([
+  ['aikon', 'first'],
   ['aimar', 'once'],
   ['akala', 'spare'],
   ['aruar', 'offer'],
