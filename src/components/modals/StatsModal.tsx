@@ -67,11 +67,14 @@ export const StatsModal = ({
         numberOfGuessesMade={numberOfGuessesMade}
       />
       {(isGameLost || isGameWon) && (<div className="mt-5 sm:mt-6 dark:text-white" >
-        <div className='bg-slate-200 dark:bg-slate-600 rounded px-1 py-3 my-2 text-lg'>
+        <div className="flex">
+          <div className='w-20'><img src="/henki_mareadis.png"></img></div>
+
+          <div className='bg-slate-200 dark:bg-slate-600 rounded px-1 py-3 my-2 text-lg flex items-center'>
             <h5>{WORD_MEANING_MESSAGE(solution, solutionMeaning)}</h5>
           </div>
+        </div>
         <div className="columns-2">
-          
           <div>
             <h5>{NEW_WORD_TEXT}</h5>
             <Countdown
@@ -96,7 +99,7 @@ export const StatsModal = ({
             {SHARE_TEXT}
           </button>
         </div>
-        </div>
+      </div>
       )}
     </BaseModal>
   )

@@ -4,6 +4,8 @@ This is a clone project of the popular word guessing game we all know and love, 
 
 Source code was forked from [react-wordle](https://github.com/cwackerfuss/react-wordle), and makes use of [Mawkin Sans](https://github.com/raffitz/mawkin-sans). A huge thanks to [Chozo Course](https://twitter.com/ChozoCourse) and everyone in the Cipher Club for decoding Chozo.
 
+Henki Ma-read-is illustration provided by [Metroid35](https://twitter.com/metroid35).
+
 [**Try out the demo!**](https://chozordle.vercel.app/)
 
 ## Build and run
