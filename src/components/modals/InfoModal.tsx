@@ -1,6 +1,7 @@
 import { Cell } from '../grid/Cell'
 import { BaseModal } from './BaseModal'
-import { getStoredIsChozoMode } from '../../lib/localStorage'
+import { getStoredSymbolType } from '../../lib/localStorage'
+import { SYMBOL_TYPES } from '../../constants/settings'
 
 type Props = {
   isOpen: boolean
@@ -8,7 +9,7 @@ type Props = {
 }
 
 export const InfoModal = ({ isOpen, handleClose }: Props) => {
-  const isChozoMode = getStoredIsChozoMode()
+  const isMawkin = getStoredSymbolType() === SYMBOL_TYPES.Mawkin
 
   return (
     <BaseModal title="How to play" isOpen={isOpen} handleClose={handleClose}>
@@ -24,9 +25,9 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
           value="H"
           status="correct"
         />
-        <Cell value={isChozoMode ? ".A" : "A"} />
+        <Cell value={isMawkin ? '.A' : 'A'} />
         <Cell value="D" />
-        <Cell value={isChozoMode ? ".A" : "A"} />
+        <Cell value={isMawkin ? '.A' : 'A'} />
         <Cell value="R" />
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-300">
@@ -35,14 +36,14 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
 
       <div className="flex justify-center mb-1 mt-4">
         <Cell value="O" />
-        <Cell value={isChozoMode ? ".L" : "L"} />
+        <Cell value={isMawkin ? '.L' : 'L'} />
         <Cell
           isRevealing={true}
           isCompleted={true}
           value="M"
           status="present"
         />
-        <Cell value={isChozoMode ? ".E" : "E"} />
+        <Cell value={isMawkin ? '.E' : 'E'} />
         <Cell value="N" />
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-300">
@@ -51,9 +52,14 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
 
       <div className="flex justify-center mb-1 mt-4">
         <Cell value="G" />
-        <Cell value={isChozoMode ? ".E" : "E"} />
+        <Cell value={isMawkin ? '.E' : 'E'} />
         <Cell value="L" />
-        <Cell isRevealing={true} isCompleted={true} value={isChozoMode ? ".S" : "S"} status="absent" />
+        <Cell
+          isRevealing={true}
+          isCompleted={true}
+          value={isMawkin ? '.S' : 'S'}
+          status="absent"
+        />
         <Cell value="U" />
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-300">
@@ -68,15 +74,18 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
           className="underline font-bold"
         >
           check out the code here
-        </a>.
+        </a>
+        .
       </p>
       <p className="mt-6 italic text-sm text-gray-500 dark:text-gray-300">
-        If you want to learn more about Chozo, check out the <a
+        If you want to learn more about Chozo, check out the{' '}
+        <a
           href="https://twitter.com/ChozoCourse"
           className="underline font-bold"
         >
           Chozo Course
-        </a>!
+        </a>
+        !
       </p>
     </BaseModal>
   )

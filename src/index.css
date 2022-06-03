@@ -9,6 +9,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'pixel_chozo';
+  src: url('./pixel_chozo.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --animation-speed: 1000ms;
   --animation-speed-fast: 250ms;
@@ -32,8 +39,16 @@
   --present-cell-bg-color: theme('colors.cyan.400');
 }
 
-.chozo-font {
+.mawkin-font {
   font-family: 'mawkin_sansregular';
+}
+
+.thoha-font {
+  font-family: 'pixel_chozo';
+}
+
+.language-button {
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .cell-fill-animation {
@@ -60,8 +75,10 @@
 }
 
 .letter-container {
-  /* I have no idea why, but this fixes letters being clipped while flipping on iOS */
-  padding: 30px;
+  /* On iOS, ligature glyphs get clipped during the flip animation */
+  /* unless we force a min-width */
+  min-width: 45px;
+  text-align: center;
 }
 
 .cell-reveal > .letter-container {

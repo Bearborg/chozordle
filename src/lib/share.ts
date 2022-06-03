@@ -1,7 +1,7 @@
 import { getGuessStatuses } from './statuses'
 import { solutionIndex, unicodeSplit } from './words'
 import { GAME_TITLE } from '../constants/strings'
-import { MAX_CHALLENGES } from '../constants/settings'
+import { MAX_CHALLENGES, SymbolType, SYMBOL_TYPES } from '../constants/settings'
 import { UAParser } from 'ua-parser-js'
 
 const webShareApiDeviceTypes: string[] = ['mobile', 'smarttv', 'wearable']
@@ -14,17 +14,14 @@ export const shareStatus = (
   guesses: string[],
   lost: boolean,
   isHardMode: boolean,
+  symbolType: SymbolType,
   handleShareToClipboard: () => void
 ) => {
   const textToShare =
     `${GAME_TITLE} #${solutionIndex} ${
       lost ? 'X' : guesses.length
     }/${MAX_CHALLENGES}${isHardMode ? '*' : ''}\n\n` +
-    generateEmojiGrid(
-      solution,
-      guesses,
-      getEmojiTiles()
-    )
+    generateEmojiGrid(solution, guesses, getEmojiTiles(symbolType))
 
   const shareData = { text: textToShare }
 
@@ -59,9 +56,9 @@ export const generateEmojiGrid = (
         .map((_, i) => {
           switch (status[i]) {
             case 'correct':
-              return (i % 2 === 0) ? tiles[0] : tiles[1]
+              return i % 2 === 0 ? tiles[0] : tiles[1]
             case 'present':
-              return (i % 2 === 0) ? tiles[2] : tiles[3]
+              return i % 2 === 0 ? tiles[2] : tiles[3]
             default:
               return tiles[4]
           }
@@ -82,12 +79,20 @@ const attemptShare = (shareData: object) => {
   )
 }
 
-const getEmojiTiles = () => {
+const getEmojiTiles = (symbolType: SymbolType) => {
   let tiles: string[] = []
-  tiles.push('🔽')
-  tiles.push('🔼')
-  tiles.push('🔻')
-  tiles.push('🔺')
-  tiles.push('⬜')
+  if (symbolType === SYMBOL_TYPES.Thoha) {
+    tiles.push('⏹')
+    tiles.push('⏹')
+    tiles.push('🟥')
+    tiles.push('🟥')
+    tiles.push('⬜')
+  } else {
+    tiles.push('🔽')
+    tiles.push('🔼')
+    tiles.push('🔻')
+    tiles.push('🔺')
+    tiles.push('⬜')
+  }
   return tiles
 }

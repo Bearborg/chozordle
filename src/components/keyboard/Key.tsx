@@ -1,8 +1,11 @@
 import { ReactNode } from 'react'
 import classnames from 'classnames'
 import { CharStatus } from '../../lib/statuses'
-import { REVEAL_TIME_MS } from '../../constants/settings'
-import { getStoredIsHighContrastMode, getStoredIsChozoMode } from '../../lib/localStorage'
+import { REVEAL_TIME_MS, SYMBOL_TYPES } from '../../constants/settings'
+import {
+  getStoredIsHighContrastMode,
+  getStoredSymbolType,
+} from '../../lib/localStorage'
 import { solution } from '../../lib/words'
 
 type Props = {
@@ -24,7 +27,6 @@ export const Key = ({
 }: Props) => {
   const keyDelayMs = REVEAL_TIME_MS * solution.length
   const isHighContrast = getStoredIsHighContrastMode()
-  const isChozoMode = getStoredIsChozoMode()
 
   const classes = classnames(
     'flex items-center justify-center rounded mx-0.5 cursor-pointer select-none dark:text-white',
@@ -41,8 +43,9 @@ export const Key = ({
         status === 'correct' && !isHighContrast,
       'bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 text-white':
         status === 'present' && !isHighContrast,
-      'text-xl chozo-font': isChozoMode,
-      'text-xs font-bold': !isChozoMode,
+      'text-xl mawkin-font': getStoredSymbolType() === SYMBOL_TYPES.Mawkin,
+      'text-3xl thoha-font': getStoredSymbolType() === SYMBOL_TYPES.Thoha,
+      'text-xs font-bold': getStoredSymbolType() === SYMBOL_TYPES.English,
     }
   )
 

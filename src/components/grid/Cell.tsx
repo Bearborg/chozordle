@@ -1,7 +1,10 @@
 import { CharStatus } from '../../lib/statuses'
 import classnames from 'classnames'
-import { REVEAL_TIME_MS } from '../../constants/settings'
-import { getStoredIsHighContrastMode, getStoredIsChozoMode } from '../../lib/localStorage'
+import { REVEAL_TIME_MS, SYMBOL_TYPES } from '../../constants/settings'
+import {
+  getStoredIsHighContrastMode,
+  getStoredSymbolType,
+} from '../../lib/localStorage'
 
 type Props = {
   value?: string
@@ -22,7 +25,6 @@ export const Cell = ({
   const shouldReveal = isRevealing && isCompleted
   const animationDelay = `${position * REVEAL_TIME_MS}ms`
   const isHighContrast = getStoredIsHighContrastMode()
-  const isChozoMode = getStoredIsChozoMode()
 
   const classes = classnames(
     'w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-4xl font-bold rounded dark:text-white',
@@ -42,14 +44,19 @@ export const Cell = ({
         status === 'present' && !isHighContrast,
       'cell-fill-animation': isFilled,
       'cell-reveal': shouldReveal,
-      'chozo-font': isChozoMode,
+      'mawkin-font': getStoredSymbolType() === SYMBOL_TYPES.Mawkin,
+      'thoha-font text-5xl': getStoredSymbolType() === SYMBOL_TYPES.Thoha,
     }
   )
 
   return (
     <div className={classes} style={{ animationDelay }}>
       <div className="letter-container" style={{ animationDelay }}>
-        {(value && isChozoMode && position % 2 !== 0) ? '.' + value : value}
+        {value &&
+        getStoredSymbolType() === SYMBOL_TYPES.Mawkin &&
+        position % 2 !== 0
+          ? '.' + value
+          : value}
       </div>
     </div>
   )

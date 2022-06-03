@@ -1,6 +1,9 @@
+import { SYMBOL_TYPES, SymbolType } from '../constants/settings'
+
 const gameStateKey = 'gameState'
 const highContrastKey = 'highContrast'
-const chozoModeKey = 'chozoMode'
+const chozoModeKey = 'chozoMode' // Legacy setting
+const symbolTypeKey = 'symbolType'
 
 type StoredGameState = {
   guesses: string[]
@@ -49,15 +52,21 @@ export const getStoredIsHighContrastMode = () => {
   return highContrast === '1'
 }
 
-export const setStoredIsChozoMode = (isChozoMode: boolean) => {
-  if (isChozoMode) {
-    localStorage.setItem(chozoModeKey, '1')
-  } else {
-    localStorage.setItem(chozoModeKey, '0')
-  }
+export const setStoredSymbolType = (symbolType: SymbolType) => {
+  localStorage.setItem(symbolTypeKey, symbolType)
 }
 
-export const getStoredIsChozoMode = () => {
-  const chozoMode = localStorage.getItem(chozoModeKey)
-  return chozoMode !== '0'
+export const getStoredSymbolType = () => {
+  // Read legacy "Chozo Mode" setting just in case
+  const symbolVal = localStorage.getItem(symbolTypeKey)
+  const chozoModeVal = localStorage.getItem(chozoModeKey)
+  if (symbolVal === null) {
+    if (chozoModeVal === null) {
+      return SYMBOL_TYPES.Mawkin
+    } else {
+      return chozoModeVal === '0' ? SYMBOL_TYPES.English : SYMBOL_TYPES.Mawkin
+    }
+  } else {
+    return symbolVal as SymbolType
+  }
 }

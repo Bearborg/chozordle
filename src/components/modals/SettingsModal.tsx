@@ -3,8 +3,10 @@ import { SettingsToggle } from './SettingsToggle'
 import {
   HARD_MODE_DESCRIPTION,
   HIGH_CONTRAST_MODE_DESCRIPTION,
-  CHOZO_MODE_DESCRIPTION,
+  SYMBOL_TYPE_DESCRIPTION,
 } from '../../constants/strings'
+import { SettingsLanguageSelector } from './SettingsLanguageSelector'
+import { SymbolType } from '../../constants/settings'
 
 type Props = {
   isOpen: boolean
@@ -14,9 +16,9 @@ type Props = {
   isDarkMode: boolean
   handleDarkMode: Function
   isHighContrastMode: boolean
-  handleHighContrastMode: Function,
-  isChozoMode: boolean,
-  handleChozoMode: Function,
+  handleHighContrastMode: Function
+  symbolType: SymbolType
+  handleSymbolType: Function
 }
 
 export const SettingsModal = ({
@@ -28,8 +30,8 @@ export const SettingsModal = ({
   handleDarkMode,
   isHighContrastMode,
   handleHighContrastMode,
-  isChozoMode,
-  handleChozoMode,
+  symbolType,
+  handleSymbolType,
 }: Props) => {
   return (
     <BaseModal title="Settings" isOpen={isOpen} handleClose={handleClose}>
@@ -51,11 +53,11 @@ export const SettingsModal = ({
           handleFlag={handleHighContrastMode}
           description={HIGH_CONTRAST_MODE_DESCRIPTION}
         />
-        <SettingsToggle
-          settingName="Chozo Mode"
-          flag={isChozoMode}
-          handleFlag={handleChozoMode}
-          description={CHOZO_MODE_DESCRIPTION}
+        <SettingsLanguageSelector
+          settingName="Language"
+          symbolType={symbolType}
+          handleChange={handleSymbolType}
+          description={SYMBOL_TYPE_DESCRIPTION}
         />
       </div>
     </BaseModal>

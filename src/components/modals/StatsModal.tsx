@@ -10,8 +10,9 @@ import {
   GUESS_DISTRIBUTION_TEXT,
   NEW_WORD_TEXT,
   SHARE_TEXT,
-  WORD_MEANING_MESSAGE
+  WORD_MEANING_MESSAGE,
 } from '../../constants/strings'
+import { SymbolType } from '../../constants/settings'
 
 type Props = {
   isOpen: boolean
@@ -24,6 +25,7 @@ type Props = {
   isGameWon: boolean
   handleShareToClipboard: () => void
   isHardMode: boolean
+  symbolType: SymbolType
   numberOfGuessesMade: number
 }
 
@@ -38,6 +40,7 @@ export const StatsModal = ({
   isGameWon,
   handleShareToClipboard,
   isHardMode,
+  symbolType,
   numberOfGuessesMade,
 }: Props) => {
   if (gameStats.totalGames <= 0) {
@@ -66,40 +69,44 @@ export const StatsModal = ({
         isGameWon={isGameWon}
         numberOfGuessesMade={numberOfGuessesMade}
       />
-      {(isGameLost || isGameWon) && (<div className="mt-5 sm:mt-6 dark:text-white" >
-        <div className="flex">
-          <div className='w-20'><img src="/henki_mareadis.png"></img></div>
+      {(isGameLost || isGameWon) && (
+        <div className="mt-5 sm:mt-6 dark:text-white">
+          <div className="flex">
+            <div className="w-20">
+              <img src="/henki_mareadis.png" alt=""></img>
+            </div>
 
-          <div className='bg-slate-200 dark:bg-slate-600 rounded px-1 py-3 my-2 text-lg flex items-center'>
-            <h5>{WORD_MEANING_MESSAGE(solution, solutionMeaning)}</h5>
+            <div className="bg-slate-200 dark:bg-slate-600 rounded px-1 py-3 my-2 text-lg flex items-center">
+              <h5>{WORD_MEANING_MESSAGE(solution, solutionMeaning)}</h5>
+            </div>
+          </div>
+          <div className="columns-2">
+            <div>
+              <h5>{NEW_WORD_TEXT}</h5>
+              <Countdown
+                className="text-lg font-medium text-gray-900 dark:text-gray-100"
+                date={tomorrow}
+                daysInHours={true}
+              />
+            </div>
+            <button
+              type="button"
+              className="mt-2 w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+              onClick={() => {
+                shareStatus(
+                  solution,
+                  guesses,
+                  isGameLost,
+                  isHardMode,
+                  symbolType,
+                  handleShareToClipboard
+                )
+              }}
+            >
+              {SHARE_TEXT}
+            </button>
           </div>
         </div>
-        <div className="columns-2">
-          <div>
-            <h5>{NEW_WORD_TEXT}</h5>
-            <Countdown
-              className="text-lg font-medium text-gray-900 dark:text-gray-100"
-              date={tomorrow}
-              daysInHours={true}
-            />
-          </div>
-          <button
-            type="button"
-            className="mt-2 w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-            onClick={() => {
-              shareStatus(
-                solution,
-                guesses,
-                isGameLost,
-                isHardMode,
-                handleShareToClipboard
-              )
-            }}
-          >
-            {SHARE_TEXT}
-          </button>
-        </div>
-      </div>
       )}
     </BaseModal>
   )

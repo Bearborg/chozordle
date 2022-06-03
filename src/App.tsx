@@ -18,6 +18,7 @@ import {
   REVEAL_TIME_MS,
   WELCOME_INFO_MODAL_MS,
   DISCOURAGE_INAPP_BROWSERS,
+  SymbolType,
 } from './constants/settings'
 import {
   isWordInWordList,
@@ -33,8 +34,8 @@ import {
   saveGameStateToLocalStorage,
   setStoredIsHighContrastMode,
   getStoredIsHighContrastMode,
-  setStoredIsChozoMode,
-  getStoredIsChozoMode,
+  setStoredSymbolType,
+  getStoredSymbolType,
 } from './lib/localStorage'
 import { default as GraphemeSplitter } from 'grapheme-splitter'
 
@@ -68,7 +69,7 @@ function App() {
   const [isHighContrastMode, setIsHighContrastMode] = useState(
     getStoredIsHighContrastMode()
   )
-  const [isChozoMode, setIsChozoMode] = useState(getStoredIsChozoMode())
+  const [symbolType, setSymbolType] = useState(getStoredSymbolType())
   const [isRevealing, setIsRevealing] = useState(false)
   const [guesses, setGuesses] = useState<string[]>(() => {
     const loaded = loadGameStateFromLocalStorage()
@@ -127,13 +128,7 @@ function App() {
     } else {
       document.documentElement.classList.remove('high-contrast')
     }
-
-    if (isChozoMode) {
-      document.documentElement.classList.add('chozo-mode')
-    } else {
-      document.documentElement.classList.remove('chozo-mode')
-    }
-  }, [isDarkMode, isHighContrastMode, isChozoMode])
+  }, [isDarkMode, isHighContrastMode])
 
   const handleDarkMode = (isDark: boolean) => {
     setIsDarkMode(isDark)
@@ -154,9 +149,9 @@ function App() {
     setStoredIsHighContrastMode(isHighContrast)
   }
 
-  const handleChozoMode = (isChozoMode: boolean) => {
-    setIsChozoMode(isChozoMode)
-    setStoredIsChozoMode(isChozoMode)
+  const handleSymbolType = (symbolType: SymbolType) => {
+    setSymbolType(symbolType)
+    setStoredSymbolType(symbolType)
   }
 
   const clearCurrentRowClass = () => {
@@ -305,6 +300,7 @@ function App() {
           isGameWon={isGameWon}
           handleShareToClipboard={() => showSuccessAlert(GAME_COPIED_MESSAGE)}
           isHardMode={isHardMode}
+          symbolType={symbolType}
           numberOfGuessesMade={guesses.length}
         />
         <SettingsModal
@@ -316,8 +312,8 @@ function App() {
           handleDarkMode={handleDarkMode}
           isHighContrastMode={isHighContrastMode}
           handleHighContrastMode={handleHighContrastMode}
-          isChozoMode={isChozoMode}
-          handleChozoMode={handleChozoMode}
+          symbolType={symbolType}
+          handleSymbolType={handleSymbolType}
         />
         <AlertContainer />
       </div>
