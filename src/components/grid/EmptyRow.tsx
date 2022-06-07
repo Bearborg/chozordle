@@ -3,9 +3,10 @@ import { Cell } from './Cell'
 
 export const EmptyRow = () => {
   const emptyCells = Array.from(Array(solution.length))
+  const style = { gridTemplateColumns: `repeat(${solution.length}, 1fr)` }
 
   return (
-    <div className="mb-1 flex justify-center">
+    <div className="grid gap-1" style={style}>
       {emptyCells.map((_, i) => (
         <Cell key={i} />
       ))}

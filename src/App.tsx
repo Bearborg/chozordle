@@ -288,16 +288,17 @@ function App() {
         </div>
       )}
 
-      <div className="mx-auto flex w-full grow flex-col px-1 pt-2 pb-8 sm:px-6 md:max-w-7xl lg:px-8">
-        <div className="grow pb-6">
-          <Grid
-            solution={solution}
-            guesses={guesses}
-            currentGuess={currentGuess}
-            isRevealing={isRevealing}
-            currentRowClassName={currentRowClass}
-          />
-        </div>
+      <div
+        className="absolute mx-auto flex w-full grow flex-col self-center px-1 pt-2 pb-8 sm:px-6 md:max-w-7xl lg:px-8"
+        id="game-container"
+      >
+        <Grid
+          solution={solution}
+          guesses={guesses}
+          currentGuess={currentGuess}
+          isRevealing={isRevealing}
+          currentRowClassName={currentRowClass}
+        />
         <Keyboard
           onChar={onChar}
           onDelete={onDelete}

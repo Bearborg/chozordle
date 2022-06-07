@@ -11,3 +11,4 @@ export const BLOWFISH_KEY = 'xcQUAHsik#Thq&LG*8es2DsZ$3bw^e'
 export const BLOWFISH_IV = '#45XmF^w'
 export const ENABLE_ARCHIVED_GAMES = false
 export const DATE_LOCALE = enUS
+export const MAX_CELL_SIZE = 60
