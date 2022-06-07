@@ -75,7 +75,7 @@ svg.cursor-pointer:hover {
 }
 
 #game-container {
-  --navbar-margin: 2%;
+  --navbar-margin: 2vw;
   --full-navbar-height: calc(var(--navbar-height) + var(--navbar-margin));
   /* This margin separates the game grid from the top of the screen,
      so it must include the navbar height along with any padding */

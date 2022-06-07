@@ -51,7 +51,8 @@ export class Grid extends Component<Props> {
       this.props.guesses.length < MAX_CHALLENGES - 1
         ? Array.from(Array(MAX_CHALLENGES - 1 - this.props.guesses.length))
         : []
-    const gridStyle = { gridTemplateRows: `repeat(${MAX_CHALLENGES}, 1fr)` }
+    const maxHeight = MAX_CELL_SIZE * MAX_CHALLENGES
+    const gridTemplateRows = `repeat(${MAX_CHALLENGES}, 1fr)`
 
     return (
       <div
@@ -62,7 +63,7 @@ export class Grid extends Component<Props> {
         <div
           id="grid"
           className="grid gap-1 p-1"
-          style={gridStyle}
+          style={{ maxHeight, gridTemplateRows }}
           ref={this.gridRef}
         >
           {this.props.guesses.map((guess, i) => (
