@@ -10,10 +10,10 @@ export const CurrentRow = ({ guess, className }: Props) => {
   const splitGuess = unicodeSplit(guess)
   const emptyCells = Array.from(Array(solution.length - splitGuess.length))
   const classes = `grid gap-1 ${className}`
-  const style = { gridTemplateColumns: `repeat(${solution.length}, 1fr)` }
+  const gridTemplateColumns = `repeat(${solution.length}, 1fr)`
 
   return (
-    <div className={classes} style={style}>
+    <div className={classes} style={{ gridTemplateColumns }}>
       {splitGuess.map((letter, i) => (
         <Cell key={i} value={letter} />
       ))}
