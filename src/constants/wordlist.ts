@@ -56,7 +56,7 @@ export const WORDS: Map<string, string> = new Map([
   ['nibur', 'intelligence'],
   ['nisar', 'close'],
   ['nobei', 'showed'],
-  ['norus', 'fellow'],
+  ['noras', 'fellow'],
   ['nulis', 'within'],
   ['obana', 'measure'],
   ['odora', 'longer'],

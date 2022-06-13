@@ -82,6 +82,7 @@ export const VALID_GUESSES = [
   'ninta',
   'nisar',
   'nobei',
+  'noras',
   'norus',
   'nulis',
   'nupha',
