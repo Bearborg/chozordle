@@ -112,7 +112,6 @@ export const getWordOfDay = (today: Date = new Date()) => {
   // Number of days elapsed since first day
   const daysElapsed = daysElapsedBetween(firstDay, today)
   const startOfCurrentPlaylist = Math.floor(daysElapsed / WORDS.size)
-  const index = daysElapsed % WORDS.size
 
   // Equivalent to python range(WORDS.size)
   let playlist = [...Array(WORDS.size).keys()]
@@ -127,6 +126,7 @@ export const getWordOfDay = (today: Date = new Date()) => {
     })
   }
   shufflePlaylist(playlist, prng)
+  const index = daysElapsed % playlist.length
 
   const nextDay = new Date(today)
   nextDay.setDate(today.getDate() + 1)
