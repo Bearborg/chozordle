@@ -13,6 +13,7 @@ import {
   WORD_MEANING_MESSAGE,
 } from '../../constants/strings'
 import { SymbolType } from '../../constants/settings'
+import henki_mareadis from '../../assets/henki_mareadis.png'
 
 type Props = {
   isOpen: boolean
@@ -73,7 +74,7 @@ export const StatsModal = ({
         <div className="mt-5 sm:mt-6 dark:text-white">
           <div className="flex">
             <div className="w-20">
-              <img src="/henki_mareadis.png" alt=""></img>
+              <img src={henki_mareadis} alt=""></img>
             </div>
 
             <div className="bg-slate-200 dark:bg-slate-600 rounded px-1 py-3 my-2 text-lg flex items-center">

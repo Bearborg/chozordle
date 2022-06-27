@@ -1,4 +1,5 @@
 import { WORDS } from '../constants/wordlist'
+import { USED_WORDS } from '../constants/usedWords'
 import { VALID_GUESSES } from '../constants/validGuesses'
 import { WRONG_SPOT_MESSAGE, NOT_CONTAINED_MESSAGE } from '../constants/strings'
 import { getGuessStatuses } from './statuses'
@@ -76,24 +77,61 @@ export const localeAwareUpperCase = (text: string) => {
 }
 
 const daysElapsedBetween = (start: Date, end: Date) => {
-  return Math.floor((end.valueOf() - start.valueOf()) / (24 * 60 * 60 * 1000));
+  return Math.floor((end.valueOf() - start.valueOf()) / (24 * 60 * 60 * 1000))
+}
+
+const shufflePlaylist = (
+  playlist: Array<number>,
+  seeded_rng: seedrandom.PRNG
+) => {
+  let currentIndex = playlist.length,
+    randomIndex
+
+  // While there remain elements to shuffle.
+  while (currentIndex !== 0) {
+    // Pick a remaining element.
+    randomIndex = Math.abs(seeded_rng.int32()) % currentIndex
+    currentIndex--
+
+    // And swap it with the current element.
+    ;[playlist[currentIndex], playlist[randomIndex]] = [
+      playlist[randomIndex],
+      playlist[currentIndex],
+    ]
+  }
+
+  return playlist
 }
 
 export const getWordOfDay = (today: Date = new Date()) => {
-  // January 1, 2022 Game Epoch
-  const epoch = new Date(2022, 0)
+  // April 19, 2022 was the first day of Chozordle
   const firstDay = new Date(2022, 4, 19)
 
   today.setHours(0, 0, 0, 0)
 
-  // Number of days elapsed since epoch
-  const daysElapsed = daysElapsedBetween(epoch, today) ;
-  const index = Math.abs(seedrandom.alea(daysElapsed.toString()).int32())
+  // Number of days elapsed since first day
+  const daysElapsed = daysElapsedBetween(firstDay, today)
+  const startOfCurrentPlaylist = Math.floor(daysElapsed / WORDS.size)
+  const index = daysElapsed % WORDS.size
+
+  // Equivalent to python range(WORDS.size)
+  let playlist = [...Array(WORDS.size).keys()]
+  const prng = seedrandom.alea(startOfCurrentPlaylist.toString())
+
+  // Filter out any words that have been used previously,
+  // to avoid duplicates after a reshuffle
+  if (USED_WORDS.has(startOfCurrentPlaylist)) {
+    playlist = playlist.filter((i) => {
+      const exclusions = USED_WORDS.get(startOfCurrentPlaylist) as string[]
+      return exclusions.find((x) => x === Array.from(WORDS)[i][0]) === undefined
+    })
+  }
+  shufflePlaylist(playlist, prng)
 
   const nextDay = new Date(today)
   nextDay.setDate(today.getDate() + 1)
 
-  const solutionPair = Array.from(WORDS)[index % WORDS.size]
+  const solutionPair = Array.from(WORDS)[playlist[index]]
 
   return {
     solution: localeAwareUpperCase(solutionPair[0]),
@@ -103,4 +141,5 @@ export const getWordOfDay = (today: Date = new Date()) => {
   }
 }
 
-export const { solution, solutionMeaning, solutionIndex, tomorrow } = getWordOfDay()
+export const { solution, solutionMeaning, solutionIndex, tomorrow } =
+  getWordOfDay()
