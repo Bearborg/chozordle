@@ -104,7 +104,7 @@ const shufflePlaylist = (
 }
 
 export const getWordOfDay = (today: Date = new Date()) => {
-  // April 19, 2022 was the first day of Chozordle
+  // May 19, 2022 was the first day of Chozordle
   const firstDay = new Date(2022, 4, 19)
 
   today.setHours(0, 0, 0, 0)

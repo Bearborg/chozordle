@@ -27,11 +27,15 @@ describe('getWordOfDay', () => {
     expect(new Set(words).size).toBe(WORDS.size - 1) // 1 duplicate word
   })
   test('a word is always chosen when there are exclusions', () => {
-    const date = new Date(2022, 6, 26) // Date exclusions were added
+    const date = new Date(2022, 5, 26) // Date exclusions were added
     let words: string[] = []
 
     for (let i = 0; i < 45; i++) {
-      words.push(getWordOfDay(date).solution)
+      const solution = getWordOfDay(date).solution
+      if (new Set(words).has(solution)) {
+        console.log(`Collision on ${date}`)
+      }
+      words.push(solution)
       date.setDate(date.getDate() + 1)
     }
 
