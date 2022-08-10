@@ -35,4 +35,5 @@ export const USED_WORDS: Map<number, string[]> = new Map([
       'hasar',
     ],
   ],
+  [1, ['odora', 'sidur', 'talar', 'megor', 'nulis', 'nebak', 'chado']],
 ])
