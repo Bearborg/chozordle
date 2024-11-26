@@ -1,13 +1,24 @@
 import { SYMBOL_TYPES, SymbolType } from '../constants/settings'
 
 const gameStateKey = 'gameState'
+const gameStatKey = 'gameStats'
 const highContrastKey = 'highContrast'
 const chozoModeKey = 'chozoMode' // Legacy setting
 const symbolTypeKey = 'symbolType'
+const portableKeys = [gameStatKey, highContrastKey, chozoModeKey, symbolTypeKey] // Don't export gameStateKey since this could alter solution
 
 type StoredGameState = {
   guesses: string[]
   solution: string
+}
+
+export type GameStats = {
+  winDistribution: number[]
+  gamesFailed: number
+  currentStreak: number
+  bestStreak: number
+  totalGames: number
+  successRate: number
 }
 
 export const saveGameStateToLocalStorage = (gameState: StoredGameState) => {
@@ -17,17 +28,6 @@ export const saveGameStateToLocalStorage = (gameState: StoredGameState) => {
 export const loadGameStateFromLocalStorage = () => {
   const state = localStorage.getItem(gameStateKey)
   return state ? (JSON.parse(state) as StoredGameState) : null
-}
-
-const gameStatKey = 'gameStats'
-
-export type GameStats = {
-  winDistribution: number[]
-  gamesFailed: number
-  currentStreak: number
-  bestStreak: number
-  totalGames: number
-  successRate: number
 }
 
 export const saveStatsToLocalStorage = (gameStats: GameStats) => {
@@ -69,4 +69,29 @@ export const getStoredSymbolType = () => {
   } else {
     return symbolVal as SymbolType
   }
+}
+
+export const importStats = (stateString: string | undefined) => {
+  if (!stateString) return
+  // TODO: Error handling
+  let importObj: any = JSON.parse(stateString)
+  for (const [key, val] of Object.entries(importObj)) {
+    if (portableKeys.includes(key)) {
+      localStorage.setItem(key, val as string)
+    }
+  }
+  // TODO: clear cache somehow
+}
+
+export const exportStats = () => {
+  let exportObj: any = {}
+  for (let i = 0; i < localStorage.length; i++) {
+    let key = localStorage.key(i)
+    if (key && portableKeys.includes(key)) {
+      let val = localStorage.getItem(key)
+      exportObj[key] = val
+    }
+  }
+
+  return encodeURIComponent(JSON.stringify(exportObj))
 }

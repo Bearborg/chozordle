@@ -6,6 +6,7 @@ type Props = {
   symbolType: SymbolType
   handleChange: Function
   description?: string
+  isHighContrast: boolean
 }
 
 export const SettingsLanguageSelector = ({
@@ -13,12 +14,14 @@ export const SettingsLanguageSelector = ({
   symbolType,
   handleChange,
   description,
+  isHighContrast,
 }: Props) => {
   const languageButton = (symbol: string) => {
     return classnames(
       'w-20 h-8 text-white shrink-0 bg-gray-300 rounded-full p-1 duration-300 ease-in-out cursor-pointer mb-3 language-button',
       {
-        'bg-green-400': symbol === symbolType,
+        'bg-green-400': symbol === symbolType && !isHighContrast,
+        'bg-orange-400': symbol === symbolType && isHighContrast,
         'mawkin-font': symbol === SYMBOL_TYPES.Mawkin,
         'thoha-font text-xl': symbol === SYMBOL_TYPES.Thoha,
         'font-bold': symbol === SYMBOL_TYPES.English,

@@ -4,6 +4,7 @@ type Props = {
   settingName: string
   flag: boolean
   handleFlag: Function
+  isHighContrast: boolean
   description?: string
 }
 
@@ -11,12 +12,14 @@ export const SettingsToggle = ({
   settingName,
   flag,
   handleFlag,
+  isHighContrast,
   description,
 }: Props) => {
   const toggleHolder = classnames(
     'w-14 h-8 flex shrink-0 items-center bg-gray-300 rounded-full p-1 duration-300 ease-in-out cursor-pointer',
     {
-      'bg-green-400': flag,
+      'bg-green-400': flag && !isHighContrast,
+      'bg-orange-400': flag && isHighContrast,
     }
   )
   const toggleButton = classnames(

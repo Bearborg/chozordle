@@ -6,6 +6,7 @@ import {
   SYMBOL_TYPE_DESCRIPTION,
 } from '../../constants/strings'
 import { SettingsLanguageSelector } from './SettingsLanguageSelector'
+import { SettingsImportExport } from './SettingsImportExport'
 import { SymbolType } from '../../constants/settings'
 
 type Props = {
@@ -41,23 +42,31 @@ export const SettingsModal = ({
           flag={isHardMode}
           handleFlag={handleHardMode}
           description={HARD_MODE_DESCRIPTION}
+          isHighContrast={isHighContrastMode}
         />
         <SettingsToggle
           settingName="Dark Mode"
           flag={isDarkMode}
           handleFlag={handleDarkMode}
+          isHighContrast={isHighContrastMode}
         />
         <SettingsToggle
           settingName="High Contrast Mode"
           flag={isHighContrastMode}
           handleFlag={handleHighContrastMode}
           description={HIGH_CONTRAST_MODE_DESCRIPTION}
+          isHighContrast={isHighContrastMode}
         />
         <SettingsLanguageSelector
           settingName="Language"
           symbolType={symbolType}
           handleChange={handleSymbolType}
           description={SYMBOL_TYPE_DESCRIPTION}
+          isHighContrast={isHighContrastMode}
+        />
+        <SettingsImportExport
+          settingName="Manage Data"
+          isHighContrast={isHighContrastMode}
         />
       </div>
     </BaseModal>
